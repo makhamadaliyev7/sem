@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f9f9f9;
+            margin: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: auto;
+            position: relative;
+        }
+        .question {
+            font-size: 18px;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .options label {
+            display: block;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            margin: 5px 0;
+            cursor: pointer;
+            background: #fff;
+            text-align: left;
+        }
+        .options input {
+            display: none;
+        }
+        .options label:hover {
+            background: #e0e0e0;
+        }
+        .result {
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        #check-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #007bff;
+            color: white;
+            margin: 20px auto;
+        }
+        #check-btn:hover {
+            background: #0056b3;
+        }
+        #home-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #000000;
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #home-btn:hover {
+            background: #000000;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Button outside the container -->
+    <button id="home-btn" onclick="goHome()"> < back </button>
+
+    <div class="container">
+        <h2>Choose the correct words: a or b</h2>
+
+        <div class="question">
+            1. John is doing homework ___.
+            <div class="options">
+                <label><input type="radio" name="q1" value="a" onclick="checkAnswer('q1')"> a) for his German lesson</label>
+                <label><input type="radio" name="q1" value="b" onclick="checkAnswer('q1')"> b) for his French lesson</label>
+            </div>
+            <p id="q1-result" class="result"></p>
+        </div>
+
+        <div class="question">
+            2. John likes watching ___ on TV.
+            <div class="options">
+                <label><input type="radio" name="q2" value="a" onclick="checkAnswer('q2')"> a) different programs</label>
+                <label><input type="radio" name="q2" value="b" onclick="checkAnswer('q2')"> b) French programs</label>
+            </div>
+            <p id="q2-result" class="result"></p>
+        </div>
+
+        <div class="question">
+            3. Amber ___ watching cooking programs.
+            <div class="options">
+                <label><input type="radio" name="q3" value="a" onclick="checkAnswer('q3')"> a) loves</label>
+                <label><input type="radio" name="q3" value="b" onclick="checkAnswer('q3')"> b) dislikes</label>
+            </div>
+            <p id="q3-result" class="result"></p>
+        </div>
+
+        <div class="question">
+            4. John likes learning ___.
+            <div class="options">
+                <label><input type="radio" name="q4" value="a" onclick="checkAnswer('q4')"> a) new meals</label>
+                <label><input type="radio" name="q4" value="b" onclick="checkAnswer('q4')"> b) new songs</label>
+            </div>
+            <p id="q4-result" class="result"></p>
+        </div>
+
+        <div class="question">
+            5. Amber ___ what Horrible Histories is.
+            <div class="options">
+                <label><input type="radio" name="q5" value="a" onclick="checkAnswer('q5')"> a) doesn’t know</label>
+                <label><input type="radio" name="q5" value="b" onclick="checkAnswer('q5')"> b) knows</label>
+            </div>
+            <p id="q5-result" class="result"></p>
+        </div>
+
+        <div class="question">
+            6. John loves ___.
+            <div class="options">
+                <label><input type="radio" name="q6" value="a" onclick="checkAnswer('q6')"> a) reading about nature</label>
+                <label><input type="radio" name="q6" value="b" onclick="checkAnswer('q6')"> b) reading about history</label>
+            </div>
+            <p id="q6-result" class="result"></p>
+        </div>
+
+        <button id="check-btn" onclick="checkAnswers()">Check Answers</button>
+        <p id="final-result" class="result"></p>
+    </div>
+
+    <script>
+        const correctAnswers = {
+            "q1": "b",
+            "q2": "a",
+            "q3": "b",
+            "q4": "a",
+            "q5": "a",
+            "q6": "b"
+        };
+
+        function checkAnswer(questionId) {
+            let selected = document.querySelector(`input[name="${questionId}"]:checked`);
+            let resultText = document.getElementById(questionId + '-result');
+            if (selected) {
+                if (selected.value === correctAnswers[questionId]) {
+                    resultText.innerHTML = "Correct!";
+                    resultText.style.color = "green";
+                } else {
+                    resultText.innerHTML = "Incorrect!";
+                    resultText.style.color = "red";
+                }
+            }
+        }
+
+        function checkAnswers() {
+            let totalCorrect = 0;
+            let totalQuestions = Object.keys(correctAnswers).length;
+            let allAnswered = true;
+
+            // Loop through all questions and check answers
+            for (let key in correctAnswers) {
+                let selected = document.querySelector(`input[name="${key}"]:checked`);
+                let resultText = document.getElementById(key + '-result');
+
+                if (!selected) {
+                    resultText.innerHTML = "Not answered!";
+                    resultText.style.color = "orange";
+                    allAnswered = false;
+                } else if (selected.value === correctAnswers[key]) {
+                    totalCorrect++;
+                }
+            }
+
+            let finalResult = document.getElementById("final-result");
+
+            if (!allAnswered) {
+                finalResult.innerHTML = "Please answer all questions!";
+                finalResult.style.color = "orange";
+            } else if (totalCorrect === totalQuestions) {
+                finalResult.innerHTML = "🎉 Well done! You got everything correct!";
+                finalResult.style.color = "green";
+            } else {
+                finalResult.innerHTML = `You got ${totalCorrect} out of ${totalQuestions} correct. Try again!`;
+                finalResult.style.color = "red";
+            }
+        }
+
+        function goHome() {
+           
+            window.location.href = "seminar.html";  // Change this to your home page URL
+        }
+    </script>
+
+</body>
+</html>

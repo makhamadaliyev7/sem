@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fill in the Gaps</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ffffff, #f0f0f0);
+            color: #333;
+        }
+
+        /* Navigation Bar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            background-color: #333;
+            padding: 15px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .navbar a {
+            color: #fff;
+            font-size: 18px;
+            text-decoration: none;
+            padding: 12px 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 5px;
+            transition: background 0.3s, transform 0.2s ease;
+        }
+
+        .navbar a:hover {
+            background-color: #ffffff;
+            color: #333;
+            transform: scale(1.1);
+        }
+
+        .navbar a:active {
+            background-color: #007bff;
+            transform: scale(1);
+        }
+
+        /* Space for content so that it doesn't overlap the navbar */
+        .content {
+            margin-top: 80px;
+        }
+
+        /* Container for the content */
+        .container {
+            max-width: 900px;
+            margin: 80px auto;
+            padding: 40px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h2 {
+            font-size: 36px;
+            margin-bottom: 30px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        p {
+            font-size: 22px;
+            line-height: 1.6;
+        }
+
+        .gap {
+            width: 200px;
+            padding: 12px;
+            font-size: 20px;
+            border: 3px solid #000000;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.2s ease-in-out, border 0.3s ease-in-out;
+        }
+
+        .gap:focus {
+            outline: none;
+            transform: scale(1.1);
+            border-color: #ffffff;
+        }
+
+        button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 24px;
+            cursor: pointer;
+            margin-top: 30px;
+            background: #ff8c00;
+            color: #fff;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            background: #ff4500;
+        }
+
+        .correct, .incorrect {
+            font-weight: bold;
+            font-size: 24px;
+            margin-top: 15px;
+            opacity: 0;
+            transform: scale(0.5);
+            animation: bounceIn 0.5s forwards;
+        }
+
+        .correct {
+            color: #4caf50;
+        }
+
+        .incorrect {
+            color: #ff3d3d;
+        }
+
+        .shake {
+            animation: shake 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.2);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+
+            p {
+                font-size: 18px;
+            }
+
+            .gap {
+                width: 150px;
+                font-size: 18px;
+            }
+
+            button {
+                font-size: 20px;
+                padding: 12px 25px;
+            }
+
+            .navbar a {
+                font-size: 16px;
+                padding: 10px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="#home">Home</a>
+        <a href="exercise1.html">Exercise 1</a>
+        <a href="exercise2.html">Exercise 2</a>
+    </div>
+
+    <div class="content">
+        <div class="container">
+            <h2>Fill in the Gaps</h2>
+            <p>1. I love sea animals. I love swimming too and I’m taking a <input type="text" id="gap1" class="gap"> course, so I can go diving on holiday with my family this summer.</p>
+            <p>2. When I go on nature walks with my family, we like taking photos of birds and animals in their <input type="text" id="gap2" class="gap">.</p>
+            <p>3. I’m always at home to watch my favorite TV program on Monday evening at seven o’clock. I never <input type="text" id="gap3" class="gap"> it!</p>
+            <p>4. We all need to help our <input type="text" id="gap4" class="gap"> and keep it clean.</p>
+            <p>5. On talent shows people can sing, dance and do magic or <input type="text" id="gap5" class="gap">.</p>
+
+            <button onclick="checkAnswers()">Submit</button>
+
+            <p id="result1"></p>
+            <p id="result2"></p>
+            <p id="result3"></p>
+            <p id="result4"></p>
+            <p id="result5"></p>
+        </div>
+    </div>
+
+    <script>
+        function checkAnswers() {
+            let answers = {
+                gap1: "scuba diving",
+                gap2: "natural habitat",
+                gap3: "miss",
+                gap4: "planet",
+                gap5: "acrobatics"
+            };
+
+            for (let i = 1; i <= 5; i++) {
+                let inputField = document.getElementById("gap" + i);
+                let userAnswer = inputField.value.trim().toLowerCase();
+                let resultElement = document.getElementById("result" + i);
+
+                if (userAnswer === answers["gap" + i]) {
+                    resultElement.innerHTML = "✅ Correct!";
+                    resultElement.className = "correct";
+                    inputField.style.borderColor = "#4caf50";
+                } else {
+                    resultElement.innerHTML = "❌ Incorrect!";
+                    resultElement.className = "incorrect";
+                    inputField.classList.add("shake");
+                    inputField.style.borderColor = "#ff3d3d";
+                    
+                    setTimeout(() => {
+                        inputField.classList.remove("shake");
+                    }, 500);
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
